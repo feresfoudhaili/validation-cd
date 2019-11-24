@@ -13,7 +13,7 @@ node('') {
 			"files": [
 				{
 					"pattern": "cd-repo/reservation-service-0.0.1-SNAPSHOT.jar",
-					"target": "exemple/${BUILD_NUMBER}/",
+					"target": "cd-repo/${BUILD_NUMBER}/",
 					"props": "Integration-Tested=Yes;Performance-Tested=No"
 				}
 			]
