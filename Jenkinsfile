@@ -12,7 +12,7 @@ node('') {
 		def uploadSpec = """{
 			"files": [
 				{
-					"pattern": "cd-repo/reservation-service-0.0.1-SNAPSHOT.jar",
+					"pattern": "target/reservation-service-0.0.1-SNAPSHOT.jar",
 					"target": "cd-repo/${BUILD_NUMBER}/",
 					"props": "Integration-Tested=Yes;Performance-Tested=No"
 				}
