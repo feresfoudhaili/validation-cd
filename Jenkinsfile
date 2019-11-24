@@ -36,4 +36,14 @@ node('') {
 			bat 'mvn dockerfile:push';
 		}
         }
+	stage ('Create And Publish Docker Image'){
+                bat 'docker run -p 5050:8090 -d feresfoudhaili/validation-cd:0.0.1-SNAPSHOT';
+        }
+	stage ('Email-Notification'){
+		mail bcc: '', body: '''Hello,
+		project build successfully,
+		cordially,
+		Jenkins_Admin.
+		''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'feres.foudhaili@esprit.tn'
+	}
 }
