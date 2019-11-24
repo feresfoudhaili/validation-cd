@@ -52,7 +52,7 @@
 <version>1.4.0</version>
 <configuration>
 
-<repository>waliddhaoui/reservation-service</repository>
+<repository>feresfoudhaili/validation-cd</repository>
 <tag>${project.version}</tag>
 <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 <buildArgs>
