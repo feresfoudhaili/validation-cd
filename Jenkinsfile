@@ -21,26 +21,19 @@ node('') {
 		server.upload(uploadSpec)
 	}
 	stage('Clean Package') {
-            steps{
 		withMaven(maven:'mm'){    
                 	bat 'mvn clean verify';
 		}
-            }
         }
 	stage ('Build Package'){
-            steps{
 		withMaven(maven:'mm'){
                 	bat 'mvn package';
 		}
-            }
-           
         }
 	stage ('Create And Publish Docker Image'){
-            steps{
 		withMaven(maven:'mm'){
                 	bat 'mvn package dockerfile:build';
 			bat 'mvn dockerfile:push';
 		}
-            }
         }
 }
