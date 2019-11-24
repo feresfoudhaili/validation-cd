@@ -13,12 +13,6 @@ node('') {
 			bat 'mvn clean verify sonar:sonar -Dsonar.projectName=exemple-sonar -Dsonar.projectKey=exemple-sonar -Dsonar.projectVersion=$BUILD_NUMBER';
 		}
 	}
-	stage ('Integration Test'){
-		withMaven(maven:'mm'){
-			bat 'mvn clean verify -Dsurefire.skip=true';}
-		junit '**/target/failsafe-reports/TEST-*.xml'
-		archive 'target/*.jar'
-	}
 	stage ('Publish'){
 		def server = Artifactory.server 'arti'
 		def uploadSpec = """{
@@ -32,11 +26,27 @@ node('') {
 		}"""
 		server.upload(uploadSpec)
 	}
-	stage ('Email-Notification'){
-		mail bcc: '', body: '''Hello,
-		project build successfully,
-		cordially,
-		Jenkins_Admin.
-		''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'feres.foudhaili@esprit.tn'
-	}
+	stage('Clean Package') {
+            steps{
+		withMaven(maven:'mm'){    
+                	bat 'mvn clean verify';
+		}
+            }
+        }
+	stage ('Build Package'){
+            steps{
+		withMaven(maven:'mm'){
+                	bat 'mvn package';
+		}
+            }
+           
+        }
+	stage ('Create And Publish Docker Image'){
+            steps{
+		withMaven(maven:'mm'){
+                	bat 'mvn package dockerfile:build';
+			bat 'mvn dockerfile:push';
+		}
+            }
+        }
 }
