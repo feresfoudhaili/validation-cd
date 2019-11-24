@@ -4,7 +4,7 @@ node('') {
 	}
 	stage('Static Code Analysis'){
 		withMaven(maven:'mm'){
-			bat 'mvn clean verify sonar:sonar -Dsonar.projectName=exemple-sonar -Dsonar.projectKey=exemple-sonar -Dsonar.projectVersion=$BUILD_NUMBER';
+			bat 'mvn clean verify sonar:sonar -Ddockerfile.skip -Dsonar.projectName=exemple-sonar -Dsonar.projectKey=exemple-sonar -Dsonar.projectVersion=$BUILD_NUMBER';
 		}
 	}
 	stage ('Publish'){
